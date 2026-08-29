@@ -23,7 +23,8 @@ public class PlantController {
             @RequestParam String type,
             @RequestParam String wateringFrequency,
             @RequestParam String sunlight,
-            @RequestParam String notes) {
+            @RequestParam String notes,
+            @RequestParam String dateAdded) {
 
         Plant plant = new Plant(
                 0,
@@ -31,7 +32,8 @@ public class PlantController {
                 type,
                 wateringFrequency,
                 sunlight,
-                notes
+                notes,
+                dateAdded
         );
 
         PlantDatabase.addPlant(plant);

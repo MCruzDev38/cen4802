@@ -36,6 +36,10 @@
     <input type="text" id="notes" name="notes">
     <br><br>
 
+    <label for="dateAdded">Date Added:</label>
+    <input type="date" id="dateAdded" name="dateAdded" required>
+    <br><br>
+
     <button type="submit">Add Plant</button>
 </form>
 
@@ -50,6 +54,7 @@
         <th>Watering Frequency</th>
         <th>Sunlight</th>
         <th>Notes</th>
+        <th>Date Added</th>
         <th>Actions</th>
     </tr>
 
@@ -59,6 +64,7 @@
         <td th:text="${plant.wateringFrequency}"></td>
         <td th:text="${plant.sunlight}"></td>
         <td th:text="${plant.notes}"></td>
+        <td th:text="${plant.dateAdded}"></td>
         <td>
 
             <form action="/update" method="post">
