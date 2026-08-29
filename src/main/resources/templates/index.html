@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Care Tracker</title>
+</head>
+
+<body>
+
+<h1>Plant Care Tracker</h1>
+
+<p>Welcome to the Plant Care Tracker web application.</p>
+<p>This application allows users to manage plant care information.</p>
+
+<h2>Add Plant</h2>
+
+<form action="/add" method="post">
+    <label for="name">Plant Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br><br>
+
+    <label for="type">Plant Type:</label>
+    <input type="text" id="type" name="type" required>
+    <br><br>
+
+    <label for="wateringFrequency">Watering Frequency:</label>
+    <input type="text" id="wateringFrequency" name="wateringFrequency" required>
+    <br><br>
+
+    <label for="sunlight">Sunlight:</label>
+    <input type="text" id="sunlight" name="sunlight" required>
+    <br><br>
+
+    <label for="notes">Notes:</label>
+    <input type="text" id="notes" name="notes">
+    <br><br>
+
+    <button type="submit">Add Plant</button>
+</form>
+
+<hr>
+
+<h2>My Plants</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Watering Frequency</th>
+        <th>Sunlight</th>
+        <th>Notes</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="plant : ${plants}">
+        <td th:text="${plant.name}"></td>
+        <td th:text="${plant.type}"></td>
+        <td th:text="${plant.wateringFrequency}"></td>
+        <td th:text="${plant.sunlight}"></td>
+        <td th:text="${plant.notes}"></td>
+        <td>
+
+            <form action="/update" method="post">
+                <input type="hidden" name="id" th:value="${plant.id}">
+
+                <input type="text"
+                       name="wateringFrequency"
+                       th:value="${plant.wateringFrequency}"
+                       required>
+
+                <input type="text"
+                       name="notes"
+                       th:value="${plant.notes}">
+
+                <button type="submit">Update</button>
+            </form>
+
+            <form action="/delete" method="post">
+                <input type="hidden" name="id" th:value="${plant.id}">
+                <button type="submit">Delete</button>
+            </form>
+
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>
