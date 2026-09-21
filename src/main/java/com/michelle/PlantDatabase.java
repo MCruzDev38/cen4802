@@ -6,10 +6,13 @@ import java.util.List;
 
 public class PlantDatabase {
 
-    private static final String DATABASE_URL = "jdbc:sqlite:plant_care.db";
+    private static String databaseUrl = "jdbc:sqlite:plant_care.db";
 
     public static Connection connect() throws SQLException {
-        return DriverManager.getConnection(DATABASE_URL);
+        return DriverManager.getConnection(databaseUrl);
+    }
+    static void setDatabaseUrl(String url) {
+        databaseUrl = url;
     }
 
     public static void createTable() {
