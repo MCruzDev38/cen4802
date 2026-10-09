@@ -23,6 +23,7 @@ public class PlantDatabase {
                     type TEXT NOT NULL,
                     watering_frequency TEXT NOT NULL,
                     sunlight TEXT NOT NULL,
+                    location TEXT,
                     notes TEXT,
                     date_added TEXT
                 );
@@ -33,6 +34,7 @@ public class PlantDatabase {
 
             stmt.execute(sql);
             addDateAddedColumnIfNeeded(conn);
+            addLocationColumnIfNeeded(conn);
 
             System.out.println("Database table is ready.");
 
@@ -63,11 +65,32 @@ public class PlantDatabase {
         }
     }
 
+    private static void addLocationColumnIfNeeded(Connection conn) throws SQLException {
+        boolean columnExists = false;
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("PRAGMA table_info(plants);")) {
+
+            while (rs.next()) {
+                if ("location".equalsIgnoreCase(rs.getString("name"))) {
+                    columnExists = true;
+                    break;
+                }
+            }
+        }
+
+        if (!columnExists) {
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute("ALTER TABLE plants ADD COLUMN location TEXT;");
+            }
+        }
+    }
+
     public static void addPlant(Plant plant) {
         String sql = """
                 INSERT INTO plants
-                (name, type, watering_frequency, sunlight, notes, date_added)
-                VALUES (?, ?, ?, ?, ?, ?);
+                (name, type, watering_frequency, sunlight, location, notes, date_added)
+                VALUES (?, ?, ?, ?, ?, ?, ?);
                 """;
 
         try (Connection conn = connect();
@@ -77,8 +100,9 @@ public class PlantDatabase {
             pstmt.setString(2, plant.getType());
             pstmt.setString(3, plant.getWateringFrequency());
             pstmt.setString(4, plant.getSunlight());
-            pstmt.setString(5, plant.getNotes());
-            pstmt.setString(6, plant.getDateAdded());
+            pstmt.setString(5, plant.getLocation());
+            pstmt.setString(6, plant.getNotes());
+            pstmt.setString(7, plant.getDateAdded());
 
             pstmt.executeUpdate();
             System.out.println("Plant added successfully.");
@@ -139,6 +163,7 @@ public class PlantDatabase {
                         rs.getString("type"),
                         rs.getString("watering_frequency"),
                         rs.getString("sunlight"),
+                        rs.getString("location"),
                         rs.getString("notes"),
                         rs.getString("date_added")
                 );
@@ -153,10 +178,10 @@ public class PlantDatabase {
         return plants;
     }
 
-    public static void updatePlant(int id, String newWateringFrequency, String newNotes) {
+    public static void updatePlant(int id, String newWateringFrequency, String newLocation, String newNotes) {
         String sql = """
                 UPDATE plants
-                SET watering_frequency = ?, notes = ?
+                SET watering_frequency = ?, location = ?, notes = ?
                 WHERE id = ?;
                 """;
 
@@ -164,8 +189,9 @@ public class PlantDatabase {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, newWateringFrequency);
-            pstmt.setString(2, newNotes);
-            pstmt.setInt(3, id);
+            pstmt.setString(2, newLocation);
+            pstmt.setString(3, newNotes);
+            pstmt.setInt(4, id);
 
             int rowsUpdated = pstmt.executeUpdate();
 

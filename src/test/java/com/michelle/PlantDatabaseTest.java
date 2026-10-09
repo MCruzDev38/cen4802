@@ -29,6 +29,7 @@ public class PlantDatabaseTest {
                 "Succulent",
                 "Every 14 days",
                 "Indirect light",
+                "Living Room",
                 "Low maintenance",
                 "2026-09-13"
         );
@@ -39,6 +40,7 @@ public class PlantDatabaseTest {
 
         assertEquals(1, plants.size());
         assertEquals("Snake Plant", plants.get(0).getName());
+        assertEquals("Living Room", plants.get(0).getLocation());
         assertEquals("Succulent", plants.get(0).getType());
     }
 
@@ -49,6 +51,7 @@ public class PlantDatabaseTest {
                 "Tropical",
                 "Every 7 days",
                 "Bright indirect light",
+                "Kitchen",
                 "Original notes",
                 "2026-09-13"
         );
@@ -60,6 +63,7 @@ public class PlantDatabaseTest {
         PlantDatabase.updatePlant(
                 savedPlant.getId(),
                 "Every 5 days",
+                "Living Room",
                 "Updated notes"
         );
 
@@ -67,6 +71,7 @@ public class PlantDatabaseTest {
 
         assertEquals("Every 5 days", updatedPlant.getWateringFrequency());
         assertEquals("Updated notes", updatedPlant.getNotes());
+        assertEquals("Living Room", updatedPlant.getLocation());
     }
 
     @Test
@@ -76,6 +81,7 @@ public class PlantDatabaseTest {
                 "Tropical",
                 "Every 14 days",
                 "Low light",
+                "Bedroom",
                 "Easy care",
                 "2026-09-13"
         );
@@ -96,6 +102,7 @@ public class PlantDatabaseTest {
                 "Tropical",
                 "Every 7 days",
                 "Indirect light",
+                "Living Room",
                 "Fast growing",
                 "2026-09-13"
         );
@@ -105,6 +112,7 @@ public class PlantDatabaseTest {
                 "Succulent",
                 "Every 14 days",
                 "Bright light",
+                "Patio",
                 "Allow soil to dry",
                 "2026-09-13"
         );

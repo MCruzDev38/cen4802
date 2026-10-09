@@ -10,7 +10,7 @@
 
 <h1>Plant Care Tracker</h1>
 
-<p>Welcome to the Plant Care Tracker web application - CI Build.</p>
+<p>Welcome to the Plant Care Tracker web application - Docker Build.</p>
 <p>This application allows users to manage plant care information.</p>
 
 <h2>Add Plant</h2>
@@ -30,6 +30,10 @@
 
     <label for="sunlight">Sunlight:</label>
     <input type="text" id="sunlight" name="sunlight" required>
+    <br><br>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required>
     <br><br>
 
     <label for="notes">Notes:</label>
@@ -53,6 +57,7 @@
         <th>Type</th>
         <th>Watering Frequency</th>
         <th>Sunlight</th>
+        <th>Location</th>
         <th>Notes</th>
         <th>Date Added</th>
         <th>Actions</th>
@@ -63,6 +68,7 @@
         <td th:text="${plant.type}"></td>
         <td th:text="${plant.wateringFrequency}"></td>
         <td th:text="${plant.sunlight}"></td>
+        <td th:text="${plant.location}"></td>
         <td th:text="${plant.notes}"></td>
         <td th:text="${plant.dateAdded}"></td>
         <td>
@@ -73,6 +79,12 @@
                 <input type="text"
                        name="wateringFrequency"
                        th:value="${plant.wateringFrequency}"
+                       required>
+
+                <input type="text"
+                       name="location"
+                       th:value="${plant.location}"
+                       placeholder="Location"
                        required>
 
                 <input type="text"

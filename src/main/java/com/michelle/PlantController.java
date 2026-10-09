@@ -23,6 +23,7 @@ public class PlantController {
             @RequestParam String type,
             @RequestParam String wateringFrequency,
             @RequestParam String sunlight,
+            @RequestParam String location,
             @RequestParam String notes,
             @RequestParam String dateAdded) {
 
@@ -32,6 +33,7 @@ public class PlantController {
                 type,
                 wateringFrequency,
                 sunlight,
+                location,
                 notes,
                 dateAdded
         );
@@ -53,9 +55,10 @@ public class PlantController {
     public String updatePlant(
             @RequestParam int id,
             @RequestParam String wateringFrequency,
+            @RequestParam String location,
             @RequestParam String notes) {
 
-        PlantDatabase.updatePlant(id, wateringFrequency, notes);
+        PlantDatabase.updatePlant(id, wateringFrequency, location, notes);
 
         return "redirect:/";
     }
