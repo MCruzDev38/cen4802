@@ -39,7 +39,7 @@ public class PlantDatabaseTest {
         List<Plant> plants = PlantDatabase.getAllPlants();
 
         assertEquals(1, plants.size());
-        assertEquals("Snake Plant", plants.get(0).getName());
+        assertEquals("Aloe", plants.get(0).getName());
         assertEquals("Living Room", plants.get(0).getLocation());
         assertEquals("Succulent", plants.get(0).getType());
     }
