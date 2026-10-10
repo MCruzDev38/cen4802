@@ -33,3 +33,15 @@ jobs:
         with:
           name: PlantCareTracker-JAR
           path: target/*.jar
+
+      - name: Build Docker image
+        run: docker build -t plant-care-tracker:ci .
+
+      - name: Save Docker image
+        run: docker save plant-care-tracker:ci -o plant-care-tracker-ci.tar
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlantCareTracker-Docker-Image
+          path: plant-care-tracker-ci.tar
